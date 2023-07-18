@@ -1,0 +1,38 @@
+﻿
+@model List<Product>
+
+
+<div class="container">
+    <div class="row">
+        <article class="col33 fleft">
+            <div class="vh50" style="background: url('img/mango.jpg') center/cover;"></div>
+            <div class="vh50 art">
+            </div>
+        </article>
+
+        <article class="col66 fleft">
+            <div class="vh50" style="background: url('img/grape.jpg') center/cover;"></div>
+            <div class="vh50 bgag art">
+                @foreach (var product in Model)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img src="~/@product.ImageUrl" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text">@product.Category?.Name</p>
+                            <div class="row">
+                                @foreach (var tag in product.ProductTags)
+                                {
+                                    <a class="btn btn-danger">@tag.Tag.Name</a>
+                                }
+                            </div>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </article>
+    </div>
+</div>

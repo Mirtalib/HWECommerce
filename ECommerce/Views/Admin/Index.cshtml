@@ -1,0 +1,30 @@
+﻿@model List<Category>
+
+<div class="container">
+    <div class="row">
+
+        <article class="col66 fleft">
+            <div class="vh50" style="background: url('img/grape.jpg') center/cover;"></div>
+            <div class="vh50 bgag art">
+                @foreach (var category in Model)
+                {
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item">@category.Name</li>
+                        @foreach (var product in @category.Products)
+                        {
+                            <li class="list-group-item">@product.Name</li>   
+                        }
+                    </ul>
+                }
+            </div>
+        </article>
+        <article class="col33 fleft">
+            <div class="vh50" style="background: url('img/mango.jpg') center/cover;"></div>
+            <div class="vh50 art">
+       
+
+                
+            </div>
+        </article>
+    </div>
+</div>
