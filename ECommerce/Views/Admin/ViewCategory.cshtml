@@ -1,0 +1,17 @@
+﻿@model List<Category>
+
+
+@foreach (var category in Model)
+{
+    <div class="card">
+        <div class="card-header">
+            Category
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@category.Name</h5>
+            <p class="card-text">@category.CreatedTime</p>
+            <a asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-primary">Delete</a>
+            <a asp-controller="Admin" asp-action="UpdateCategory" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+}

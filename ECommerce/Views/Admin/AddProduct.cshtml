@@ -1,12 +1,26 @@
 ﻿@model AddProductViewModel
 
 <form asp-action="AddProduct" asp-controller="Admin" method="post" enctype="multipart/form-data">
-    <input asp-for="Name" placeholder="Name" /> <br />
-    <textarea asp-for="Description" placeholder="Description...."></textarea> <br />
-    <input type="file" asp-for="ImageUrl" /><br />
-    <select asp-for="CategoryId" asp-items="@ViewBag.Categories"></select> <br />
-    <select multiple style="width:350px" asp-for="TagIds" asp-items="@ViewBag.Tags"></select>
-    <input type="submit" />
-
-
+    <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Product Name</label>
+            <input asp-for="Name" placeholder="Name" class="form-control" id="exampleFormControlInput1"/>
+    </div>
+    <div class="mb-3">
+        <label for="formFileSm" class="form-label">Small file input example</label>
+        <input class="form-control form-control-sm" id="formFileSm" type="file" asp-for="ImageUrl" >
+    </div>
+    <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea asp-for="Description" placeholder="Description...." class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"></select>
+    </div>
+    <div class="mb-3">
+            <select asp-for="TagIds" asp-items="@ViewBag.Tags" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"></select>
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-outline-success" />
+        <a asp-area="" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+    </div>
 </form>

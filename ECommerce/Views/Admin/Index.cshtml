@@ -1,30 +1,32 @@
 ﻿@model List<Category>
 
+
 <div class="container">
     <div class="row">
+        <div class="col-4">
+            <div class="btn-group-vertical">
+                <a asp-area="" asp-controller="Admin" asp-action="AddCategory" class="btn btn-outline-secondary">Add Category</a>
+                <a asp-area="" asp-controller="Admin" asp-action="AddProduct" class="btn btn-outline-secondary">Add Product</a>
+                <a asp-area="" asp-controller="Admin" asp-action="AddTag" class="btn btn-outline-secondary">Add Tag</a>
 
-        <article class="col66 fleft">
-            <div class="vh50" style="background: url('img/grape.jpg') center/cover;"></div>
-            <div class="vh50 bgag art">
-                @foreach (var category in Model)
-                {
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item">@category.Name</li>
-                        @foreach (var product in @category.Products)
-                        {
-                            <li class="list-group-item">@product.Name</li>   
-                        }
-                    </ul>
-                }
             </div>
-        </article>
-        <article class="col33 fleft">
-            <div class="vh50" style="background: url('img/mango.jpg') center/cover;"></div>
-            <div class="vh50 art">
-       
+        </div>
+        <div class="col-8">
+            @foreach (var category in Model)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        Category
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@category.Name</h5>
+                        <p class="card-text">@category.CreatedTime</p>
+                        <a asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-primary">Delete</a>
+                        <a asp-controller="Admin" asp-action="UpdateCategory" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            }
 
-                
-            </div>
-        </article>
+        </div>
     </div>
 </div>

@@ -4,6 +4,7 @@ using ECommerce.Models;
 using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
 {
@@ -16,15 +17,10 @@ namespace ECommerce.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View(context.Products.ToList());
-        }
-
         public IActionResult AddProduct()
         {
             ViewBag.Categories = new SelectList(context.Categories, "Id", "Name");
-            ViewBag.Tags = new MultiSelectList(context.Tags, "Id", "Name");
+            ViewBag.Tags = new SelectList(context.Tags, "Id", "Name");
             return View();
         }
 
@@ -53,7 +49,7 @@ namespace ECommerce.Controllers
 
                 await context.SaveChangesAsync();
 
-                return View("Index.cshtml");
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
@@ -61,5 +57,114 @@ namespace ECommerce.Controllers
                 return View("error.cshtml");
             }
         }
+
+
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+
+
+        [HttpPost]
+        public IActionResult AddCategory(AddCategoryViewModel model)
+        {
+            Category category = new()
+            {
+                Name = model.Name,
+                CreatedTime = DateTime.Now
+            };
+            context.Add(category);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult DeleteProduct()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteProduct(int Id)
+        {
+            var entity = context.Categories.FirstOrDefault(x => x.Id == Id);
+            if (entity is not null)
+                context.Categories.Remove(entity);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult EditCategory()
+        {
+            return View();
+        }
+        public IActionResult EditCategory(EditCategoryViewModel model)
+        {
+            Category category = new()
+            {
+                Name = model.Name,
+                CreatedTime = DateTime.Now
+            };
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+        public IActionResult AddTag()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult AddTag(AddTagViewModel model)
+        {
+            Tag tag = new()
+            {
+                Name = model.Name,
+                CreatedTime = DateTime.Now
+            };
+            context.Add(tag);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult Index()
+        {
+            return View(context.Categories.ToList());
+        }
+
+
+        public IActionResult DeleteCategory(int Id)
+        {
+            var entity = context.Categories.FirstOrDefault(x => x.Id == Id);
+            if (entity is not null)
+                context.Categories.Remove(entity);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+            
+        }
+
+
+
+
+
     }
 }
