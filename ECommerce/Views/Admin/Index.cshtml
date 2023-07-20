@@ -1,6 +1,4 @@
-﻿@model List<Category>
-
-
+﻿
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -8,25 +6,16 @@
                 <a asp-area="" asp-controller="Admin" asp-action="AddCategory" class="btn btn-outline-secondary">Add Category</a>
                 <a asp-area="" asp-controller="Admin" asp-action="AddProduct" class="btn btn-outline-secondary">Add Product</a>
                 <a asp-area="" asp-controller="Admin" asp-action="AddTag" class="btn btn-outline-secondary">Add Tag</a>
+                <a asp-area="" asp-controller="Admin" asp-action="ViewCategory" class="btn btn-outline-secondary">Categoryes</a>
+                <a asp-area="" asp-controller="Admin" asp-action="ViewProduct" class="btn btn-outline-secondary">Products</a>
+                <a asp-area="" asp-controller="Admin" asp-action="ViewTag" class="btn btn-outline-secondary">Tags</a>
+
 
             </div>
         </div>
         <div class="col-8">
-            @foreach (var category in Model)
-            {
-                <div class="card">
-                    <div class="card-header">
-                        Category
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@category.Name</h5>
-                        <p class="card-text">@category.CreatedTime</p>
-                        <a asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-primary">Delete</a>
-                        <a asp-controller="Admin" asp-action="UpdateCategory" class="btn btn-primary">Edit</a>
-                    </div>
-                </div>
-            }
 
+            <h1> Welcome To Admin Panel</h1>
         </div>
     </div>
 </div>

@@ -16,6 +16,10 @@ namespace ECommerce.Controllers
         {
             this.context = context;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         public IActionResult AddProduct()
         {
@@ -27,129 +31,89 @@ namespace ECommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                string path = await UploadFileHelper.UploadFile(model.ImageUrl);
-
-                Product product = new()
+                try
                 {
-                    Name = model.Name,
-                    Description = model.Description,
-                    ImageUrl = path,
-                    CategoryId = model.CategoryId,
-                };
+                    string path = await UploadFileHelper.UploadFile(model.ImageUrl);
 
-                context.Add(product);
-                await context.SaveChangesAsync();
+                    Product product = new()
+                    {
+                        Name = model.Name,
+                        Description = model.Description,
+                        ImageUrl = path,
+                        CategoryId = model.CategoryId,
+                    };
 
-                foreach (var tag in model.TagIds)
-                {
-                    context.Add(new ProductTag { TagId = tag, ProductId = product.Id });
+                    context.Add(product);
+                    await context.SaveChangesAsync();
+
+                    foreach (var tag in model.TagIds)
+                    {
+                        context.Add(new ProductTag { TagId = tag, ProductId = product.Id });
+                    }
+
+                    await context.SaveChangesAsync();
+
+                    return RedirectToAction("ViewProduct");
                 }
+                catch (Exception)
+                {
 
-                await context.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+                    return View("error.cshtml");
+                }
             }
-            catch (Exception)
+            else
             {
-
-                return View("error.cshtml");
+                return View();
             }
         }
-
-
-        public IActionResult AddCategory()
-        {
-            return View();
-        }
-
-
-        [HttpPost]
-
-
-        [HttpPost]
-        public IActionResult AddCategory(AddCategoryViewModel model)
-        {
-            Category category = new()
-            {
-                Name = model.Name,
-                CreatedTime = DateTime.Now
-            };
-            context.Add(category);
-            context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
 
         public IActionResult DeleteProduct()
         {
             return View();
         }
 
-
         [HttpPost]
         public IActionResult DeleteProduct(int Id)
         {
+
             var entity = context.Categories.FirstOrDefault(x => x.Id == Id);
             if (entity is not null)
                 context.Categories.Remove(entity);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewProduct");
         }
 
+        public IActionResult ViewProduct(int Id)
+        {
+            return View(context.Products.ToList());
+        }
 
-
-        public IActionResult EditCategory()
+        public IActionResult AddCategory()
         {
             return View();
         }
-        public IActionResult EditCategory(EditCategoryViewModel model)
-        {
-            Category category = new()
-            {
-                Name = model.Name,
-                CreatedTime = DateTime.Now
-            };
-
-            return RedirectToAction("Index");
-        }
-
-
-
-
-
-
-
-        public IActionResult AddTag()
-        {
-            return View();
-        }
-
 
         [HttpPost]
-        public IActionResult AddTag(AddTagViewModel model)
+        public IActionResult AddCategory(AddCategoryViewModel model)
         {
-            Tag tag = new()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                CreatedTime = DateTime.Now
-            };
-            context.Add(tag);
-            context.SaveChanges();
 
-            return RedirectToAction("Index");
+                Category category = new()
+                {
+                    Name = model.Name,
+                    CreatedTime = DateTime.Now
+                };
+                context.Add(category);
+                context.SaveChanges();
+
+                return RedirectToAction("ViewCategory");
+            }
+            return View();
         }
-
-
-
-        public IActionResult Index()
-        {
-            return View(context.Categories.ToList());
-        }
-
 
         public IActionResult DeleteCategory(int Id)
         {
@@ -158,12 +122,55 @@ namespace ECommerce.Controllers
                 context.Categories.Remove(entity);
             context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewCategory");
             
         }
 
+        public IActionResult ViewCategory(int Id)
+        {
+            return View(context.Categories.ToList());
+        }
+
+        public IActionResult AddTag()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddTag(AddTagViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Tag tag = new()
+                {
+                    Name = model.Name,
+                    CreatedTime = DateTime.Now
+                };
+                context.Add(tag);
+                context.SaveChanges();
+
+                return RedirectToAction("ViewTag");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public IActionResult DeleteTag(int id)
+        {
+            var entity = context.Tags.FirstOrDefault(x => x.Id == id);
+            if (entity is not null)
+                context.Tags.Remove(entity);
+            context.SaveChanges();
+            return RedirectToAction("ViewTag");
+        }
 
 
+        public IActionResult ViewTag()
+        {
+            return View(context.Tags.ToList());
+        }
 
 
     }
