@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ECommerce.Models.ViewModels
+namespace ECommerce.Areas.Admin.Models.ViewModels
 {
     public class AddProductViewModel
     {
@@ -12,7 +12,7 @@ namespace ECommerce.Models.ViewModels
 
         [Required(ErrorMessage = "Image Url is required")]
         public IFormFile ImageUrl { get; set; }
-        
+
         [Required(ErrorMessage = "Category is required")]
         public int CategoryId { get; set; }
 

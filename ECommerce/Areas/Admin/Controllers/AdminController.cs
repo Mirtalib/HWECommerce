@@ -1,12 +1,12 @@
-﻿using ECommerce.Data;
+﻿using ECommerce.Areas.Admin.Models;
+using ECommerce.Areas.Admin.Models.ViewModels;
+using ECommerce.Data;
 using ECommerce.Helpers;
-using ECommerce.Models;
-using ECommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Controllers
+namespace ECommerce.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
@@ -123,7 +123,7 @@ namespace ECommerce.Controllers
             context.SaveChanges();
 
             return RedirectToAction("ViewCategory");
-            
+
         }
 
         public IActionResult ViewCategory(int Id)

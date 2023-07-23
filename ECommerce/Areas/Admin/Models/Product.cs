@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Models
+﻿using ECommerce.Areas.Admin.Models.ViewModels;
+
+namespace ECommerce.Areas.Admin.Models
 {
     public class Product : BaseEntity
     {

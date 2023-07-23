@@ -1,4 +1,4 @@
-﻿using ECommerce.Models;
+﻿using ECommerce.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Data

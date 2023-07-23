@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Models
+﻿namespace ECommerce.Areas.Admin.Models.ViewModels
 {
     public class BaseEntity
     {
