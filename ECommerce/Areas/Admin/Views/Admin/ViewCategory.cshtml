@@ -10,12 +10,12 @@
         <div class="card-body">
             <h5 class="card-title">@category.Name</h5>
             <p class="card-text">@category.CreatedTime</p>
-            <a asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-primary">Delete</a>
+            <a asp-area="Admin" asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-primary">Delete</a>
         </div>
     </div>
 }
 
 <div class="mb-3">
-    <a asp-area="" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">Back</a>
+    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary m-2">Back</a>
 </div>
 

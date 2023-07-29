@@ -10,11 +10,11 @@
         <div class="card-body">
             <h5 class="card-title">@tag.Name</h5>
             <p class="card-text">@tag.CreatedTime</p>
-            <a asp-action="DeleteTag" asp-route-id="@tag.Id" class="btn btn-primary">Delete</a>
+            <a asp-area="Admin" asp-action="DeleteTag" asp-route-id="@tag.Id" class="btn btn-primary">Delete</a>
             
         </div>
     </div>
 }
 <div class="mb-3">
-    <a asp-area="" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">Back</a>
+    <a asp-area="Admin" asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary m-2">Back</a>
 </div>
